@@ -1,2 +1,1 @@
-# Expense Tracker
-## Martin Sattam
+# By Martin Sattam
