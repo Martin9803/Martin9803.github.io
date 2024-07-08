@@ -1,8 +1,3 @@
----
-layout: default
-title: Expense Tracker
----
-
 # Expense Tracker
 ## By Martin Sattam
 
