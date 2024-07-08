@@ -11,7 +11,7 @@
     <div>
         <label for="income">Starting Amount:</label>
         <input type="number" id="income" step="0.01">
-        <button onclick="main()">Start</button>
+        <button id="start-button">Start</button>
     </div>
 
     <div id="main-section" style="display:none;">
@@ -26,22 +26,22 @@
             <input type="text" id="description">
             <label for="amount">Amount:</label>
             <input type="number" id="amount" step="0.01">
-            <button onclick="add_transaction(transactions, income)">Add Transaction</button>
+            <button id="add-transaction-button">Add Transaction</button>
         </div>
-        <button onclick="view_transactions(transactions, income)">View Transactions</button>
-        <button onclick="remove_transaction(transactions, income)">Remove Transaction</button>
-        <button onclick="exit_program()">Exit</button>
+        <button id="view-transactions-button">View Transactions</button>
+        <button id="remove-transaction-button">Remove Transaction</button>
+        <button id="exit-button">Exit</button>
     </div>
 
     <div id="output"></div>
 
     <script type="text/python">
-        from browser import document, html, window
+        from browser import document, window
 
         transactions = []
         income = 0.0
 
-        def add_transaction(transactions, income):
+        def add_transaction(event):
             type = document["type"].value
             description = document["description"].value
             amount = float(document["amount"].value)
@@ -52,7 +52,8 @@
             transactions.append(transaction)
             document["output"].text = "Successfully added transaction."
 
-        def view_transactions(transactions, income):
+        def view_transactions(event):
+            global income
             if len(transactions) == 0:
                 document["output"].text = "No transactions in list."
                 return
@@ -76,8 +77,8 @@
             output += f"<p>Net Balance: ${Balance:.2f}</p>"
             document["output"].html = output
 
-        def remove_transaction(transactions, income):
-            view_transactions(transactions, income)
+        def remove_transaction(event):
+            view_transactions(None)
             if len(transactions) == 0:
                 return
             index = int(window.prompt("Enter the number of the transaction to remove: ")) - 1
@@ -87,16 +88,21 @@
             else:
                 document["output"].text = "Index is invalid. Try again."
 
-        def exit_program():
+        def exit_program(event):
             document["main-section"].style.display = "none"
             document["output"].text = "Exiting program..."
 
-        def main():
+        def main(event):
             global income
             income = float(document["income"].value)
             document["main-section"].style.display = "block"
             document["output"].text = "Welcome to the Expense Planner!"
 
+        document["start-button"].bind("click", main)
+        document["add-transaction-button"].bind("click", add_transaction)
+        document["view-transactions-button"].bind("click", view_transactions)
+        document["remove-transaction-button"].bind("click", remove_transaction)
+        document["exit-button"].bind("click", exit_program)
     </script>
 </body>
 </html>
