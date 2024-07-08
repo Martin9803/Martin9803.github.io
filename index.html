@@ -19,7 +19,7 @@
         <div>
             <label for="type">Type:</label>
             <select id="type">
-                <option value="expense">Expense</option>
+                <option value="Expense">Expense</option>
                 <option value="income">Income</option>
             </select>
             <label for="description">Description:</label>
@@ -66,7 +66,7 @@
                 amount = transaction['amount']
                 output += f"<li>{i}. Description: {transaction['description']}, Amount: ${amount}, Type: {type}</li>"
 
-                if type == "expense":
+                if type == "Expense":
                     expenses += amount
                 elif type == "income":
                     income += amount
