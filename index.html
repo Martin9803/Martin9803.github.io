@@ -9,8 +9,8 @@
     <h2>By Martin Sattam</h2>
 
     <div>
-        <label for="income">Budget:</label>
-        <input type="number" id="income" step="0.01">
+        <label for="Income">Budget:</label>
+        <input type="number" id="Income" step="0.01">
         <button id="start-button">Start</button>
     </div>
 
@@ -20,7 +20,7 @@
             <label for="type">Type:</label>
             <select id="type">
                 <option value="Expense">Expense</option>
-                <option value="income">Income</option>
+                <option value="Income">Income</option>
             </select>
             <label for="description">Description:</label>
             <input type="text" id="description">
@@ -39,7 +39,7 @@
         from browser import document, window
 
         transactions = []
-        income = 0.0
+        Income = 0.0
 
         def add_transaction(event):
             type = document["type"].value
@@ -53,7 +53,7 @@
             document["output"].text = "Successfully added transaction."
 
         def view_transactions(event):
-            global income
+            global Income
             if len(transactions) == 0:
                 document["output"].text = "No transactions in list."
                 return
@@ -68,12 +68,12 @@
 
                 if type == "Expense":
                     Expenses += amount
-                elif type == "income":
-                    income += amount
-            Balance = income - Expenses
+                elif type == "Income":
+                    Income += amount
+            Balance = Income - Expenses
             output += "</ul>"
             output += f"<p>Total Expenses: ${Expenses:.2f}</p>"
-            output += f"<p>Total Income: ${income:.2f}</p>"
+            output += f"<p>Total Income: ${Income:.2f}</p>"
             output += f"<p>Net Balance: ${Balance:.2f}</p>"
             document["output"].html = output
 
@@ -93,8 +93,8 @@
             document["output"].text = "Exiting program..."
 
         def main(event):
-            global income
-            income = float(document["income"].value)
+            global Income
+            Income = float(document["Income"].value)
             document["main-section"].style.display = "block"
             document["output"].text = "Welcome to the Expense Planner!"
 
