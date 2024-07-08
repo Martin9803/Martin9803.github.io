@@ -1,7 +1,5 @@
 # Expense Tracker
 ## By Martin Sattam
-# Expense Tracker
-## By Martin Sattam
 
 Welcome to the Expense Tracker application! This tool is designed to help you organize and track your expenses and income to ensure you stay within your budget.
 
