@@ -1,3 +1,8 @@
+---
+layout: default
+title: Expense Tracker
+---
+
 # Expense Tracker
 ## By Martin Sattam
 
@@ -30,4 +35,5 @@ To get started with the Expense Tracker application, simply follow the link abov
 ### Technologies Used
 - **Brython**: Python for the browser.
 - **HTML/CSS**: For structuring and styling the web page.
+
 
