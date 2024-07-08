@@ -58,7 +58,7 @@
                 document["output"].text = "No transactions in list."
                 return
             
-            Expenses = 0.00
+            expenses = 0.00
             output = "<ul>"
 
             for i, transaction in enumerate(transactions, 1):
@@ -66,13 +66,13 @@
                 amount = transaction['amount']
                 output += f"<li>{i}. Description: {transaction['description']}, Amount: ${amount}, Type: {type}</li>"
 
-                if type == "Expense":
-                    Expenses += amount
+                if type == "expense":
+                    expenses += amount
                 elif type == "income":
                     income += amount
             Balance = income - expenses
             output += "</ul>"
-            output += f"<p>Total Expenses: ${Expenses:.2f}</p>"
+            output += f"<p>Total Expenses: ${expenses:.2f}</p>"
             output += f"<p>Total Income: ${income:.2f}</p>"
             output += f"<p>Net Balance: ${Balance:.2f}</p>"
             document["output"].html = output
