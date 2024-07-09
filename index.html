@@ -37,10 +37,19 @@
     <div id="output"></div>
 
     <script type="text/python">
-        from browser import document, window
+        from browser import document, window, html
 
         transactions = []
         Income = 0.0
+
+        def save_transactions():
+            window.localStorage.setItem("transactions", window.JSON.stringify(transactions))
+
+        def load_transactions():
+            global transactions
+            stored_transactions = window.localStorage.getItem("transactions")
+            if stored_transactions:
+                transactions = window.JSON.parse(stored_transactions)
 
         def add_transaction(event):
             type = document["type"].value
@@ -51,6 +60,7 @@
                 "description": description, "amount": amount, "type": type
             }
             transactions.append(transaction)
+            save_transactions()
             document["output"].text = "Successfully added transaction."
 
         def view_transactions(event):
@@ -58,25 +68,24 @@
             if len(transactions) == 0:
                 document["output"].text = "No transactions in list."
                 return
-            
+
             Expenses = 0.00
-            output = "<ul>"
+            output = html.UL()
 
             for i, transaction in enumerate(transactions, 1):
                 type = transaction['type']
                 amount = transaction['amount']
-                output += f"<li>{i}. Description: {transaction['description']}, Amount: ${amount}, Type: {type}</li>"
+                output <= html.LI(f"{i}. Description: {transaction['description']}, Amount: ${amount}, Type: {type}")
 
                 if type == "Expense":
                     Expenses += amount
                 elif type == "Income":
                     Income += amount
             Balance = Income - Expenses
-            output += "</ul>"
-            output += f"<p>Total Expenses: ${Expenses:.2f}</p>"
-            output += f"<p>Total Income: ${Income:.2f}</p>"
-            output += f"<p>Net Balance: ${Balance:.2f}</p>"
-            document["output"].html = output
+            document["output"].html = str(output)
+            document["output"].html += f"<p>Total Expenses: ${Expenses:.2f}</p>"
+            document["output"].html += f"<p>Total Income: ${Income:.2f}</p>"
+            document["output"].html += f"<p>Net Balance: ${Balance:.2f}</p>"
 
         def remove_transaction(event):
             view_transactions(None)
@@ -85,6 +94,7 @@
             index = int(window.prompt("Enter the number of the transaction to remove: ")) - 1
             if 0 <= index < len(transactions):
                 transactions.pop(index)
+                save_transactions()
                 document["output"].text = f"Transaction {index + 1} has been removed from tracker."
             else:
                 document["output"].text = "Index is invalid. Try again."
@@ -99,6 +109,7 @@
             document["main-section"].style.display = "block"
             document["output"].text = "Welcome to the Expense Planner!"
 
+        load_transactions()
         document["start-button"].bind("click", main)
         document["add-transaction-button"].bind("click", add_transaction)
         document["view-transactions-button"].bind("click", view_transactions)
@@ -107,4 +118,5 @@
     </script>
 </body>
 </html>
+
 
