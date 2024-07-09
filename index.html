@@ -70,22 +70,23 @@
                 return
 
             Expenses = 0.00
-            output = html.UL()
+            output = "<ul>"
 
             for i, transaction in enumerate(transactions, 1):
                 type = transaction['type']
                 amount = transaction['amount']
-                output <= html.LI(f"{i}. Description: {transaction['description']}, Amount: ${amount}, Type: {type}")
+                output += f"<li>{i}. Description: {transaction['description']}, Amount: ${amount}, Type: {type}</li>"
 
                 if type == "Expense":
                     Expenses += amount
                 elif type == "Income":
                     Income += amount
             Balance = Income - Expenses
-            document["output"].html = str(output)
-            document["output"].html += f"<p>Total Expenses: ${Expenses:.2f}</p>"
-            document["output"].html += f"<p>Total Income: ${Income:.2f}</p>"
-            document["output"].html += f"<p>Net Balance: ${Balance:.2f}</p>"
+            output += "</ul>"
+            output += f"<p>Total Expenses: ${Expenses:.2f}</p>"
+            output += f"<p>Total Income: ${Income:.2f}</p>"
+            output += f"<p>Net Balance: ${Balance:.2f}</p>"
+            document["output"].html = output
 
         def remove_transaction(event):
             view_transactions(None)
@@ -118,5 +119,6 @@
     </script>
 </body>
 </html>
+
 
 
