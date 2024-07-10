@@ -102,13 +102,13 @@
 
         def exit_program(event):
             document["main-section"].style.display = "none"
-            document["output"].text = "Thank you for using the Expense Planner!"
+            document["output"].text = "Thank you for using the Expense Tracker!"
 
         def main(event):
             global Income
             Income = float(document["Income"].value)
             document["main-section"].style.display = "block"
-            document["output"].text = "Welcome to the Expense Planner!"
+            document["output"].text = "Welcome to the Expense Tracker!"
 
         load_transactions()
         document["start-button"].bind("click", main)
